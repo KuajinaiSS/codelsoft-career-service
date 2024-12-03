@@ -1,0 +1,25 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "CareerProto";
+
+package career;
+
+message Empty {}
+
+message Carrer {
+  string id = 1;
+  string name = 2;
+} 
+
+message CarrerRequest {
+  int32 id = 1;
+}
+
+message CarrerResponse {
+  Carrer carrer = 1;
+}
+
+service CareerService {
+  rpc GetCareers(Empty) returns (CarrerResponse);
+}
+
