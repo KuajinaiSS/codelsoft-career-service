@@ -9,7 +9,7 @@
 
 1. Clona el repositorio:
 ```bash
-git clone 
+git clone https://github.com/KuajinaiSS/codelsoft-career-service.git
 ```
 
 2. Acederemos a la carpeta:
