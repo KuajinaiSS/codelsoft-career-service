@@ -6,20 +6,35 @@ package career;
 
 message Empty {}
 
-message Carrer {
-  string id = 1;
+message Career {
+  int32 id = 1;
   string name = 2;
-} 
+}
 
-message CarrerRequest {
+message CareerRequest {
   int32 id = 1;
 }
 
-message CarrerResponse {
-  Carrer carrer = 1;
+message CareerResponse {
+  Career career = 1;
+}
+
+message CareersResponse {
+  repeated Career careers = 1;
+}
+
+message ValidResponse {
+  bool is_valid = 1;
+}
+
+message ValidRequest {
+  int32 id = 1;
+  string name = 2;
 }
 
 service CareerService {
-  rpc GetCareers(Empty) returns (CarrerResponse);
+  rpc GetCareers(Empty) returns (CareersResponse);
+  rpc GetCareer(CareerRequest) returns(CareerResponse);
 }
+
 

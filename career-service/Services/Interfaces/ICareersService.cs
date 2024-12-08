@@ -1,4 +1,6 @@
 ﻿using career_service.DTOs;
+using CareerProto;
+using Grpc.Core;
 
 namespace career_service.Services.Interfaces;
 
@@ -10,5 +12,7 @@ public interface ICareersService
     /// <returns>
     ///  Una Lista con todas las carreras en la base de datos <see cref="CareerDto"/>
     /// </returns>
-    public Task<List<CareerDto>> GetAll();
+    public Task<CareerProto.CareersResponse> GetCareers(CareerProto.Empty request, ServerCallContext context);
+
+    public Task<CareerProto.CareerResponse> GetById(CareerProto.CareerRequest request, ServerCallContext context);
 }

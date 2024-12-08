@@ -43,6 +43,17 @@ public abstract class GenericRepository<TEntity> : IGenericRepository<TEntity> w
         return await query.ToListAsync();
     }
     
+    public virtual async Task<TEntity?> GetByiD(object id)
+    {
+        var entity = await dbSet.FindAsync(id);
+        if (entity is BaseModel baseModel && baseModel.DeletedAt is not null)
+        {
+            return null;
+        }
+        return entity;
+
+    }
+    
     
     
 }

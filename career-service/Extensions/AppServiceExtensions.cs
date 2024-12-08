@@ -3,9 +3,11 @@ using career_service.Repositories;
 using career_service.Repositories.Interfaces;
 using career_service.Services;
 using career_service.Services.Interfaces;
+using CareerProto;
 using DotNetEnv;
 using Grpc.Core;
 using Microsoft.EntityFrameworkCore;
+using CareerService = career_service.Services.CareerService;
 
 namespace career_service.Extensions;
 

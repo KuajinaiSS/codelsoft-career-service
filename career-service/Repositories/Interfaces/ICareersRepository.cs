@@ -1,6 +1,8 @@
-﻿namespace career_service.Repositories.Interfaces;
+﻿using CareerProto;
 
-public interface ICareersRepository
+namespace career_service.Repositories.Interfaces;
+
+public interface ICareersRepository : IGenericRepository<Models.Career>
 {
     
 }
