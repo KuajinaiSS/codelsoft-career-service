@@ -1,5 +1,5 @@
 ﻿# codelsoft-career-service
-## This Microservice uses port **5002**,  You need to have this port enabled to use it (localhost:5002)
+Este microservicio usa el puerto **5002**, necesitas tenerlo habitado para usar este microservicio (localhost:5002)
 ### Requisitos previos (por confirmar)
 
 - SDK [.NET8](https://dotnet.microsoft.com/es-es/download/dotnet/8.0).
