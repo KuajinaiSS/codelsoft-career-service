@@ -82,9 +82,37 @@ public class SubjectsService : SubjectProto.SubjectService.SubjectServiceBase ,I
         return await Task.FromResult(response);
     }
     
-    public Task<Dictionary<string, List<string>>> GetPreRequisitesMap()
+    public override async Task<SubjectProto.PreRequisitesResponse> GetPreRequisitesMap(SubjectProto.Empty request, ServerCallContext context)
     {
-        throw new NotImplementedException();
+        var relationshipsList = await _unitOfWork.SubjectRelationshipsRepository.Get();
+        var preRequisitesMap = new Dictionary<string, List<string>>();
+
+        relationshipsList.ForEach(sr =>
+        {
+            if (preRequisitesMap.ContainsKey(sr.SubjectCode))
+            {
+                preRequisitesMap[sr.SubjectCode].Add(sr.PreSubjectCode);
+            }
+            else
+            {
+                preRequisitesMap.Add(sr.SubjectCode, new List<string>
+                {
+                    sr.PreSubjectCode
+                });
+            }
+        });
+
+        var response = new PreRequisitesResponse();
+        foreach (var entry in preRequisitesMap)
+        {
+            response.PreRequisitesMap.Add(new PreRequisites
+            {
+                SubjectCode = entry.Key,
+                PreSubjectCodes = { entry.Value }
+            });
+        }
+
+        return await Task.FromResult(response);
     }
 
 }

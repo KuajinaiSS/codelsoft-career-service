@@ -10,7 +10,6 @@ public interface ISubjectsService
     
     public Task<SubjectProto.PostRequisitesResponse> GetPostRequisitesMap(SubjectProto.Empty request, ServerCallContext context);
     
-    public Task<Dictionary<string, List<string>>> GetPreRequisitesMap();
-
+    public Task<SubjectProto.PreRequisitesResponse> GetPreRequisitesMap(SubjectProto.Empty request, ServerCallContext context);
     
 }

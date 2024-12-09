@@ -28,6 +28,11 @@ message PostRequisites{
   repeated string postSubjectCodes = 2;
 }
 
+message PreRequisites{
+  string subjectCode = 1;
+  repeated string preSubjectCodes = 2;
+}
+
 // Responses
 message SubjectsResponse {
   repeated Subject subjects = 1;
@@ -41,10 +46,15 @@ message PostRequisitesResponse {
   repeated PostRequisites postRequisitesMap = 1;
 }
 
+message PreRequisitesResponse {
+  repeated PreRequisites preRequisitesMap = 1;
+}
+
 
 service SubjectService{
   rpc GetAll(Empty) returns (SubjectsResponse);
   rpc GetAllRelationships(Empty) returns (SubjectsRelationshipsResponse);
   rpc GetPostRequisitesMap(Empty) returns (PostRequisitesResponse);
+  rpc GetPreRequisitesMap(Empty) returns (PreRequisitesResponse);
 }
 
