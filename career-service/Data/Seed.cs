@@ -35,6 +35,7 @@ public class Seed
     private static void SeedFirstOrderTables(DataContext context, JsonSerializerOptions options)
     {
         SeedCareers(context, options);
+        SeedSubjects(context, options);
     }
 
     /// <summary>
@@ -44,13 +45,14 @@ public class Seed
     /// <param name="options">Options to deserialize json</param>
     private static void SeedSecondtOrderTables(DataContext context, JsonSerializerOptions options)
     {
+        SeedSubjectsRelationships(context, options);
     }
     
     private static void SeedCareers(DataContext context, JsonSerializerOptions options)
     {
         var result = context.Careers?.Any();
         if (result is true or null) return;
-        var path = "Data/CareersData.json";
+        var path = "Data/DataSeeders/CareersData.json";
         var careersData = File.ReadAllText(path);
         var careersList = JsonSerializer.Deserialize<List<Career>>(careersData, options) ??
                           throw new Exception("CareersData.json is empty");
@@ -61,6 +63,52 @@ public class Seed
         });
 
         context.Careers?.AddRange(careersList);
+        context.SaveChanges();
+    }
+    
+    private static void SeedSubjects(DataContext context, JsonSerializerOptions options)
+    {
+        var result = context.Subjects?.Any();
+        if (result is true or null) return;
+
+        var path = "Data/DataSeeders/SubjectsData.json";
+        var subjectsData = File.ReadAllText(path);
+        var subjectsList = JsonSerializer.Deserialize<List<Subject>>(subjectsData, options) ??
+                           throw new Exception("SubjectsData.json is empty");
+        // Normalize the name, code and department of the subjects
+        subjectsList.ForEach(s =>
+        {
+            s.Code = s.Code.ToLower();
+            s.Name = s.Name.ToLower();
+            s.Department = s.Department.ToLower();
+        });
+
+        context.Subjects?.AddRange(subjectsList);
+        context.SaveChanges();
+    }
+    
+    /// <summary>
+    /// Seed the database with the subjects relationships in the json file and save changes if the database is empty.
+    /// </summary>
+    /// <param name="context">Database context</param>
+    /// <param name="options">Options to deserialize json</param>
+    private static void SeedSubjectsRelationships(DataContext context, JsonSerializerOptions options)
+    {
+        var result = context.SubjectsRelationships?.Any();
+        if (result is true or null) return;
+        var path = "Data/DataSeeders/SubjectsRelationsData.json";
+        var subjectsRelationshipsData = File.ReadAllText(path);
+        var subjectsRelationshipsList = JsonSerializer
+                                            .Deserialize<List<SubjectRelationship>>(subjectsRelationshipsData, options) ??
+                                        throw new Exception("SubjectsRelationsData.json is empty");
+        // Normalize the codes of the codes
+        subjectsRelationshipsList.ForEach(s =>
+        {
+            s.SubjectCode = s.SubjectCode.ToLower();
+            s.PreSubjectCode = s.PreSubjectCode.ToLower();
+        });
+
+        context.SubjectsRelationships?.AddRange(subjectsRelationshipsList);
         context.SaveChanges();
     }
     
