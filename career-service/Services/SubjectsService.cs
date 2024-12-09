@@ -49,13 +49,42 @@ public class SubjectsService : SubjectProto.SubjectService.SubjectServiceBase ,I
         return await Task.FromResult(response);
     }
 
+    public override async Task<SubjectProto.PostRequisitesResponse> GetPostRequisitesMap(SubjectProto.Empty request, ServerCallContext context) 
+    {
+        var relationshipsList = await _unitOfWork.SubjectRelationshipsRepository.Get();
+        var postRequisitesMap = new Dictionary<string, List<string>>();
+        
+        relationshipsList.ForEach(sr =>
+        {
+            if (postRequisitesMap.ContainsKey(sr.PreSubjectCode))
+            {
+                postRequisitesMap[sr.PreSubjectCode].Add(sr.SubjectCode);
+            }
+            else
+            {
+                postRequisitesMap.Add(sr.PreSubjectCode, new List<string>
+                {
+                    sr.SubjectCode
+                });
+            }
+        });
+        
+        var response = new PostRequisitesResponse();
+        foreach (var entry in postRequisitesMap)
+        {
+            response.PostRequisitesMap.Add(new PostRequisites
+            {
+                PreSubjectCode = entry.Key,
+                PostSubjectCodes = { entry.Value }
+            });
+        }
+        
+        return await Task.FromResult(response);
+    }
+    
     public Task<Dictionary<string, List<string>>> GetPreRequisitesMap()
     {
         throw new NotImplementedException();
     }
 
-    public Task<Dictionary<string, List<string>>> GetPostRequisitesMap()
-    {
-        throw new NotImplementedException();
-    }
 }
