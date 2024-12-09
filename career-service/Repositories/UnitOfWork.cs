@@ -6,6 +6,8 @@ namespace career_service.Repositories;
 public class UnitOfWork : IUnitOfWork, IAsyncDisposable
 {
     private ICareersRepository _careersRepository = null!;
+    private ISubjectsRepository _subjectsRepository = null!;
+    private ISubjectRelationshipsRepository _subjectRelationshipsRepository = null!;
 
     private bool _disposed = false;
     
@@ -16,15 +18,6 @@ public class UnitOfWork : IUnitOfWork, IAsyncDisposable
     
     private readonly DataContext _context;
     
-    public ICareersRepository CareersRepository
-    {
-        get
-        {
-            _careersRepository ??= new CareersRepository(_context);
-            return _careersRepository;
-        }
-    }
-    
     protected virtual void Dispose(bool disposing)
     {
         if (!_disposed)
@@ -34,7 +27,6 @@ public class UnitOfWork : IUnitOfWork, IAsyncDisposable
         _disposed = true;
     }
     
-
     public async ValueTask DisposeAsync()
     {
         await _context.DisposeAsync();
@@ -44,5 +36,32 @@ public class UnitOfWork : IUnitOfWork, IAsyncDisposable
     {
         Dispose(true);
         GC.SuppressFinalize(this);
+    }
+    
+    public ICareersRepository CareersRepository
+    {
+        get
+        {
+            _careersRepository ??= new CareersRepository(_context);
+            return _careersRepository;
+        }
+    }
+    
+    public ISubjectsRepository SubjectsRepository
+    {
+        get
+        {
+            _subjectsRepository ??= new SubjectsRepository(_context);
+            return _subjectsRepository;
+        }
+    }
+
+    public ISubjectRelationshipsRepository SubjectRelationshipsRepository
+    {
+        get
+        {
+            _subjectRelationshipsRepository ??= new SubjectRelationshipsRepository(_context);
+            return _subjectRelationshipsRepository;
+        }
     }
 }
