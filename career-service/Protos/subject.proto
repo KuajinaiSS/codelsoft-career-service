@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+option csharp_namespace = "SubjectProto";
+
+package subject;
+
+message Empty {
+  
+}
+// Models
+message Subject{
+  int32 id = 1;
+  string code = 2;
+  string name = 3;
+  string departament = 4;
+  int32 credits = 5;
+  int32 semester = 6;
+}
+
+message SubjectsRelationships{
+  int32 id = 1;
+  string SubjectCode = 2;
+  string PreSubjectCode = 3;
+}
+
+message PostRequisites{
+  string preSubjectCode = 1;
+  repeated string postSubjectCodes = 2;
+}
+
+// Responses
+message SubjectsResponse {
+  repeated Subject subjects = 1;
+}
+
+message SubjectsRelationshipsResponse{
+  repeated SubjectsRelationships SubjectsRelationships = 1;
+}
+
+message PostRequisitesResponse {
+  repeated PostRequisites postRequisitesMap = 1;
+}
+
+
+service SubjectService{
+  rpc GetAll(Empty) returns (SubjectsResponse);
+  rpc GetAllRelationships(Empty) returns (SubjectsRelationshipsResponse);
+  rpc GetPostRequisitesMap(Empty) returns (PostRequisitesResponse);
+}
+

@@ -7,6 +7,7 @@ using CareerProto;
 using DotNetEnv;
 using Grpc.Core;
 using Microsoft.EntityFrameworkCore;
+using SubjectProto;
 using CareerService = career_service.Services.CareerService;
 
 namespace career_service.Extensions;
@@ -31,6 +32,7 @@ public static class AppServiceExtensions
         {
             services.AddScoped<IMapperService, MapperService>();
             services.AddScoped<ICareersService, CareerService>();
+            services.AddScoped<ISubjectsService, SubjectsService>();
         } 
 
         private static void AddDbContext(IServiceCollection services)
