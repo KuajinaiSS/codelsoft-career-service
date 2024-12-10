@@ -1,12 +1,20 @@
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using career_service.Extensions;
 using career_service.Services;
 using SubjectProto;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddGrpc();
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ListenAnyIP(5002, listenOptions =>
+    {
+        listenOptions.Protocols = HttpProtocols.Http2;
+    });
+});
 
+// Add services to the container.
+builder.Services.AddGrpc().AddJsonTranscoding();
 
 builder.Services.AddApplicationServices(builder.Configuration);
 

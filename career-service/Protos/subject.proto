@@ -4,6 +4,8 @@ option csharp_namespace = "SubjectProto";
 
 package subject;
 
+import "google/api/annotations.proto";
+
 message Empty {
   
 }
@@ -52,9 +54,29 @@ message PreRequisitesResponse {
 
 
 service SubjectService{
-  rpc GetAll(Empty) returns (SubjectsResponse);
-  rpc GetAllRelationships(Empty) returns (SubjectsRelationshipsResponse);
-  rpc GetPostRequisitesMap(Empty) returns (PostRequisitesResponse);
-  rpc GetPreRequisitesMap(Empty) returns (PreRequisitesResponse);
+  rpc GetAll(Empty) returns (SubjectsResponse){
+    option (google.api.http) = {
+      get: "/subjects"
+    };
+  };
+  
+  rpc GetAllRelationships(Empty) returns (SubjectsRelationshipsResponse){
+    option (google.api.http) = {
+      get: "/relationships"
+    };
+  };
+  
+  rpc GetPostRequisitesMap(Empty) returns (PostRequisitesResponse){
+    option (google.api.http) = {
+      get: "/post-requisites"
+    };
+  };
+  
+  rpc GetPreRequisitesMap(Empty) returns (PreRequisitesResponse){
+    option (google.api.http) = {
+      get: "/pre-requisites"
+    };
+  };
+  
 }
 

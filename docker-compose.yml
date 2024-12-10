@@ -1,0 +1,6 @@
+﻿services:
+  career-service:
+    image: career-service
+    build:
+      context: .
+      dockerfile: career-service/Dockerfile
