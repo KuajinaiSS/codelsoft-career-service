@@ -7,7 +7,14 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.WebHost.ConfigureKestrel(options =>
 {
+    // Puerto para HTTP con HTTP/1.1
     options.ListenAnyIP(5002, listenOptions =>
+    {
+        listenOptions.Protocols = HttpProtocols.Http1;
+    });
+    
+    // Puerto para gRPC con HTTP/2
+    options.ListenAnyIP(5012, listenOptions =>
     {
         listenOptions.Protocols = HttpProtocols.Http2;
     });
