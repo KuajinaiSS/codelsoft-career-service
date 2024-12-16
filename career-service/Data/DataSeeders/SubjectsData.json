@@ -49,16 +49,6 @@
     "semester": 1
   },
 
-
-
-
-
-
-
-
-
-
-
   {
     "code": "MEC-001",
     "name": "Mecánica",
@@ -102,15 +92,6 @@
     "semester": 2
   },
 
-
-
-
-
-
-
-
-
-  
   {
     "code": "ECD-001",
     "name": "Ecuaciones diferenciales",
@@ -160,15 +141,7 @@
     "credits": 2,
     "semester": 3
   },
-  
-  
 
-
-
-
-
-
-  
   {
     "code": "ELM-001",
     "name": "Electro Magnetismo",
@@ -211,11 +184,6 @@
     "credits": 4,
     "semester": 4
   },
-
-
-
-
-
 
   {
     "code": "ELT-001",
@@ -260,15 +228,6 @@
     "semester": 5
   },
 
-
-
-
-
-
-
-
-
-
   {
     "code": "AOC-001",
     "name": "Arquitectura y organización de computadores",
@@ -312,15 +271,6 @@
     "semester": 6
   },
 
-
-
-
-
-
-
-
-
-
   {
     "code": "SDI-001",
     "name": "Sistemas de información I",
@@ -349,7 +299,7 @@
     "credits": 5,
     "semester": 7
   },
-  
+
   {
     "code": "EPF-003",
     "name": "Electivo profesional III",
@@ -371,16 +321,6 @@
     "credits": 5,
     "semester": 7
   },
-
-
-
-
-
-
-
-
-
-
 
   {
     "code": "SDI-002",
@@ -432,13 +372,6 @@
     "semester": 8
   },
 
-
-
-
-
-
-
-
   {
     "code": "EPT-001",
     "name": "Evaluación de proyectos TI",
@@ -481,12 +414,6 @@
     "credits": 5,
     "semester": 9
   },
-
-
-
-
-
-  
   {
     "code": "CPP-001",
     "name": "Capstone project",
