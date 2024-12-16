@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using career_service.Extensions;
 using career_service.Services;
+using MassTransit;
+using RabbitMQ.Client;
 using SubjectProto;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -29,6 +31,27 @@ builder.Services.AddOutputCache(options =>
 {
     options.AddBasePolicy(builder => builder.Cache());
 });
+
+// Configurar MassTransit a RabiitMQ
+builder.Services.AddMassTransit(x =>
+{
+    x.UsingRabbitMq((context, cfg) =>
+    {
+        cfg.Host("localhost", "/", h =>
+        {
+            h.Username("guest");
+            h.Password("guest");
+        });
+        
+        cfg.Send<Subject>(config =>
+        {
+            config.UseRoutingKeyFormatter(context => "subject-queue");
+        });
+        
+    });
+});
+
+
 
 var app = builder.Build();
 app.UseOutputCache();
